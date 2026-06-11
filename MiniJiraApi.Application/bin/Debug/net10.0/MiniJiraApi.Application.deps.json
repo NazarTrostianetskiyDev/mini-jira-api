@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "MiniJiraApi.Application/1.0.0": {
+        "dependencies": {
+          "MiniJiraApi.Domain": "1.0.0"
+        },
+        "runtime": {
+          "MiniJiraApi.Application.dll": {}
+        }
+      },
+      "MiniJiraApi.Domain/1.0.0": {
+        "runtime": {
+          "MiniJiraApi.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MiniJiraApi.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MiniJiraApi.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

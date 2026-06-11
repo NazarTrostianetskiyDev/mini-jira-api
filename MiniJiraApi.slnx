@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="MiniJiraApi.API/MiniJiraApi.API.csproj" />
+  <Project Path="MiniJiraApi.Application/MiniJiraApi.Application.csproj" />
+  <Project Path="MiniJiraApi.Domain/MiniJiraApi.Domain.csproj" />
+  <Project Path="MiniJiraApi.Infrastructure/MiniJiraApi.Infrastructure.csproj" />
+</Solution>
