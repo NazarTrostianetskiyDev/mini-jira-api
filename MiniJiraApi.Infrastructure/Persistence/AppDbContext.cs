@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using MiniJiraApi.Domain.Entities;
+using MiniJiraApi.Application.Abstractions.Persistence;
 
 namespace MiniJiraApi.Infrastructure.Persistence;
 
-public sealed class AppDbContext : DbContext
+public sealed class AppDbContext : DbContext, IAppDbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
