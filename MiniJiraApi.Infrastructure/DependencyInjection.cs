@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MiniJiraApi.Infrastructure.Persistence;
 using MiniJiraApi.Application.Abstractions.Persistence;
+using MiniJiraApi.Application.Boards;
 
 namespace MiniJiraApi.Infrastructure;
 
@@ -19,6 +20,8 @@ public static class DependencyInjection
         
         services.AddScoped<IAppDbContext>(provider =>
             provider.GetRequiredService<AppDbContext>());
+        
+        services.AddScoped<BoardService>();
 
         return services;
     }
