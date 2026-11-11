@@ -4,7 +4,7 @@ using MiniJiraApi.Application.Boards;
 namespace MiniJiraApi.API.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v1/boards")]
 public sealed class BoardsController : ControllerBase
 {
     private readonly BoardService _boardService;

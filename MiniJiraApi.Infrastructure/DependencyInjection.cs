@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MiniJiraApi.Application.Abstractions.Authentication;
 using MiniJiraApi.Infrastructure.Persistence;
 using MiniJiraApi.Application.Abstractions.Persistence;
+using MiniJiraApi.Application.Authentication;
 using MiniJiraApi.Application.Boards;
+using MiniJiraApi.Infrastructure.Services.Authentication;
 
 namespace MiniJiraApi.Infrastructure;
 
@@ -22,6 +25,10 @@ public static class DependencyInjection
             provider.GetRequiredService<AppDbContext>());
         
         services.AddScoped<BoardService>();
+        
+        services.AddScoped<IPasswordHasher, IdentityPasswordHasher>();
+        
+        services.AddScoped<AuthService>();
 
         return services;
     }
