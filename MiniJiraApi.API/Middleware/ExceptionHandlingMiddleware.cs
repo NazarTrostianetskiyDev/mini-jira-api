@@ -20,6 +20,23 @@ public sealed class ExceptionHandlingMiddleware
         {
             await _next(context);
         }
+        catch (UnauthorizedException exception)
+        {
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
+            _logger.LogWarning(exception, "Unauthorized request {Method} {Path}", context.Request.Method,
+                context.Request.Path);
+
+            var problemDetails = new ProblemDetails()
+            {
+                Status = StatusCodes.Status401Unauthorized,
+                Title = "Unauthorized",
+                Detail = exception.Message
+            };
+
+            await context.Response.WriteAsJsonAsync(problemDetails, options: null,
+                contentType: "application/problem+json");
+        }
         catch (ConflictException exception)
         {
             context.Response.StatusCode = StatusCodes.Status409Conflict;

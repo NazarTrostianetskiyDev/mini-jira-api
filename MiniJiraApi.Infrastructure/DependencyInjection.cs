@@ -27,7 +27,15 @@ public static class DependencyInjection
         services.AddScoped<BoardService>();
         
         services.AddScoped<IPasswordHasher, IdentityPasswordHasher>();
-        
+
+        // Bind "Jwt" section to JwtOptions and fail at startup if required settings are missing
+        services.AddOptions<JwtOptions>()
+            .Bind(configuration.GetSection(JwtOptions.SectionName))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        services.AddSingleton<ITokenService, JwtTokenService>();
+
         services.AddScoped<AuthService>();
 
         return services;
