@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MiniJiraApi.Application.Abstractions.Authentication;
 using MiniJiraApi.Application.Authentication;
 
 namespace MiniJiraApi.API.Controllers;
@@ -21,5 +22,13 @@ public sealed class AuthController : ControllerBase
         var userId = await _authService.RegisterAsync(request, cancellationToken);
         
         return StatusCode(StatusCodes.Status201Created, userId);
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<AccessToken>> Login(LoginRequestDto request, CancellationToken cancellationToken)
+    {
+        var accessToken = await _authService.LoginAsync(request, cancellationToken);
+
+        return Ok(accessToken);
     }
 }
