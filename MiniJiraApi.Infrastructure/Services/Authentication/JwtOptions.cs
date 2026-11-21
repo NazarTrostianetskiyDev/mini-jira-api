@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MiniJiraApi.Infrastructure.Services.Authentication;
 
@@ -18,4 +20,9 @@ public sealed class JwtOptions
     
     [Required]
     public string SecretKey { get; init; } = string.Empty;
+
+    public SymmetricSecurityKey GetSigningKey()
+    {
+        return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
+    }
 }

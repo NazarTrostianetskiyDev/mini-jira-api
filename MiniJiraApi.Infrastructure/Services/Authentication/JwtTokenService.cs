@@ -25,7 +25,7 @@ public sealed class JwtTokenService : ITokenService
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
-        var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey));
+        var signingKey = _options.GetSigningKey();
         var credentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
         var expiresAt = DateTimeOffset.UtcNow.AddMinutes(_options.ExpirationMinutes);
 
