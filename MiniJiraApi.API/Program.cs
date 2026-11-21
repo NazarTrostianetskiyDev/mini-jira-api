@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using MiniJiraApi.Infrastructure;
+using MiniJiraApi.Infrastructure.Services.Authentication;
 using MiniJiraApi.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +15,31 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
+var jwtOptions = builder.Configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>()
+    ?? throw new InvalidOperationException($"Configuration section '{JwtOptions.SectionName}' is missing.");
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwtOptions.Issuer,
+
+            ValidateAudience = true,
+            ValidAudience = jwtOptions.Audience,
+
+            ValidateLifetime = true,
+
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = jwtOptions.GetSigningKey(),
+            
+            ClockSkew = TimeSpan.Zero
+        };
+
+    });
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
@@ -24,6 +52,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

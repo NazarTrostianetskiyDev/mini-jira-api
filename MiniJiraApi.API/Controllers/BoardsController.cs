@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MiniJiraApi.Application.Boards;
 
 namespace MiniJiraApi.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/v1/boards")]
 public sealed class BoardsController : ControllerBase
